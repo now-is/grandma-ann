@@ -5,7 +5,7 @@
 </script>
 
 <div class="app">
-<p>
+<p class="letters">
 	{#each state.string as letter, i}
 		<span class="letter {i == state.cursor ? 'cursor' : ''}">{letter}</span>
 	{/each}
@@ -25,6 +25,11 @@
 </div>
 
 <style>
+	.letters {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.35em;
+	}
 	.letter {
 		display: inline-block;
 		height: 1.5em;
@@ -32,10 +37,10 @@
 		border-width: 1px;
 		border-style: solid;
 		border-color: #aaa;
-		margin-inline: 4px;
 	}
 	.letter.cursor {
 		font-weight: bold;
 		border-color: black;
+		background-color: #cccccc;
 	}
 </style>
