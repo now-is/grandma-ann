@@ -2,26 +2,44 @@
 	import { initState, moveRight, moveLeft, toggleMode } from '$lib/state.ts';
 
 	let state = initState;
+
+	function handleKeydown (ev) {
+		switch (ev.key) {
+		case 'H':
+		case 'h':
+			state = moveLeft(state);
+			break;
+		case 'L':
+		case 'l':
+			state = moveRight(state);
+			break;
+		case ' ':
+			state = toggleMode(state);
+			break;
+		default:
+		}
+	}
 </script>
 
-<div class="app">
-<p class="letters">
-	{#each state.string as letter, i}
-		<span class="letter {i == state.cursor ? 'cursor' : ''}">{letter}</span>
-	{/each}
-</p>
-<p>MOVES: {state.moves}</p>
+<div class="app" on:keydown={handleKeydown} role="grid" tabindex="0">
+	<p class="letters">
+		{#each state.string as letter, i}
+			<span class="letter {i == state.cursor ? 'cursor' : ''}">{letter}</span>
+		{/each}
+	</p>
 
-<p>
-<button on:click={() => state = moveLeft(state)}>move left</button>
-<button on:click={() => state = moveRight(state)}>move right</button>
-</p>
+	<p>
+		<button on:click={() => state = moveLeft(state)}>move left</button>
+		<button on:click={() => state = moveRight(state)}>move right</button>
+	</p>
 
-<p>
-	current mode: {state.mode} <button on:click={() => state = toggleMode(state)}>change</button>
-</p>
+	<p>
+		current mode: {state.mode} <button on:click={() => state = toggleMode(state)}>change</button>
+	</p>
 
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+	<p>
+		moves: {state.moves}
+	</p>
 </div>
 
 <style>
