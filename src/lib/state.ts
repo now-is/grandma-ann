@@ -2,8 +2,8 @@
 
 // XXX move declarations away?
 enum Mode {
-	Drag,
-	Pan,
+	Drag = "drag",
+	Pan = "pan",
 }
 
 type State = {
@@ -20,11 +20,11 @@ export const initState: State = {
 	height: 4,
 	width: 8,
 	cursor: 0,
-	mode: Mode.Pan,
+	mode: Mode.Drag,
 	moves: 0,
 };
 
-export function moveRight(st: State) : State {
+export function dragRight(st: State) : State {
 	if (st.cursor >= st.string.length - 1) {
 		return st;
 	}
@@ -32,11 +32,10 @@ export function moveRight(st: State) : State {
 	st.string[st.cursor] = st.string[st.cursor+1];
 	st.string[st.cursor+1] = letter;
 	st.cursor += 1;
-	st.moves += 1;
 	return st;
 }
 
-export function moveLeft(st: State) : State {
+export function dragLeft(st: State) : State {
 	if (st.cursor <= 0) {
 		return st;
 	}
@@ -44,6 +43,33 @@ export function moveLeft(st: State) : State {
 	st.string[st.cursor] = st.string[st.cursor-1];
 	st.string[st.cursor-1] = letter;
 	st.cursor -= 1;
-	st.moves += 1;
 	return st;
+}
+
+export function panRight(st: State) : State {
+	return {
+		...st,
+		cursor: st.cursor >= st.string.length - 1 ? 0 : st.cursor + 1
+	};
+}
+
+export function panLeft(st: State) : State {
+	return {
+		...st,
+		cursor: st.cursor <= 0 ? 0 : st.cursor - 1
+	};
+}
+
+export function moveRight(st: State) : State {
+	st = st.mode === Mode.Drag ? dragRight(st) : panRight(st);
+	return {...st, moves: st.moves + 1 };
+}
+
+export function moveLeft(st: State) : State {
+	st = st.mode === Mode.Drag ? dragLeft(st) : panLeft(st);
+	return {...st, moves: st.moves + 1 };
+}
+
+export function toggleMode(st: State) : State {
+	return {...st, mode: st.mode === Mode.Drag ? Mode.Pan : Mode.Drag };
 }

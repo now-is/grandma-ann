@@ -1,5 +1,5 @@
 <script>
-	import { initState, moveRight, moveLeft } from '$lib/state.ts';
+	import { initState, moveRight, moveLeft, toggleMode } from '$lib/state.ts';
 
 	let state = initState;
 </script>
@@ -12,8 +12,14 @@
 </p>
 <p>MOVES: {state.moves}</p>
 
+<p>
 <button on:click={() => state = moveLeft(state)}>move left</button>
 <button on:click={() => state = moveRight(state)}>move right</button>
+</p>
+
+<p>
+	current mode: {state.mode} <button on:click={() => state = toggleMode(state)}>change</button>
+</p>
 
 <p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
 </div>
