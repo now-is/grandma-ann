@@ -1,4 +1,11 @@
 import adapter from '@sveltejs/adapter-auto';
+/*
+ * For production: https://bun.sh/guides/ecosystem/sveltekit
+ *
+ * First run: bun add -D svelte-adapter-bun.
+ * Uncomment here: import adapter from "svelte-adapter-bun";
+ * Build with: bun run build
+ */
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 
 /** @type {import('@sveltejs/kit').Config} */
