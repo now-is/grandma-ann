@@ -47,7 +47,9 @@
 		display: flex;
 		flex-wrap: wrap;
 		gap: 0.35em;
+		width: calc(16 * 1.5em + 15 * 0.35em);
 	}
+
 	.letter {
 		display: flex;
 		justify-content: center;
@@ -60,6 +62,7 @@
 		border-style: solid;
 		border-color: #aaa;
 	}
+
 	.letter.cursor {
 		font-weight: bold;
 		border-color: black;
