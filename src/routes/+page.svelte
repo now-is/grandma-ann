@@ -49,7 +49,11 @@
 		gap: 0.35em;
 	}
 	.letter {
-		display: inline-block;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		text-transform: uppercase;
+
 		height: 1.5em;
 		width: 1.5em;
 		border-width: 1px;
