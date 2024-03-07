@@ -20,7 +20,7 @@ export const initState: State = {
 	height: 4,
 	width: 8,
 	cursor: 0,
-	mode: Mode.Drag,
+	mode: Mode.Pan,
 	moves: 0,
 };
 
@@ -49,7 +49,7 @@ export function dragLeft(st: State) : State {
 export function panRight(st: State) : State {
 	return {
 		...st,
-		cursor: st.cursor >= st.string.length - 1 ? 0 : st.cursor + 1
+		cursor: st.cursor >= st.string.length - 1 ? st.cursor : st.cursor + 1
 	};
 }
 
