@@ -28,26 +28,22 @@
 		{/each}
 	</p>
 
-	<p>
-		<button on:click={() => state = moveLeft(state)}>move left</button>
-		<button on:click={() => state = moveRight(state)}>move right</button>
-	</p>
-
-	<p>
-		current mode: {state.mode} <button on:click={() => state = toggleMode(state)}>change</button>
-	</p>
-
-	<p>
-		moves: {state.moves}
+	<p class="status">
+		<span class="mode">{state.mode}</span>
+		<span class="moves">{state.moves}</span>
 	</p>
 </div>
 
 <style>
+	.app {
+		width: calc(16 * 1.5em + 15 * 0.35em);
+		padding: 0.35em;
+	}
+
 	.letters {
 		display: flex;
 		flex-wrap: wrap;
 		gap: 0.35em;
-		width: calc(16 * 1.5em + 15 * 0.35em);
 	}
 
 	.letter {
@@ -67,5 +63,11 @@
 		font-weight: bold;
 		border-color: black;
 		background-color: #cccccc;
+	}
+
+	.status {
+		margin-block-start: 1em;
+		display: flex;
+		justify-content: space-between;
 	}
 </style>
