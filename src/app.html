@@ -5,6 +5,15 @@
 		<link rel="icon" href="%sveltekit.assets%/favicon.png" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		%sveltekit.head%
+		<style>
+			*, *::before, *::after { box-sizing: border-box; }
+			* { margin: 0; }
+			html, body { height: 100%; }
+			body {
+				background-color: #333333;
+				color: #ffcc00;
+			}
+		</style>
 	</head>
 	<body data-sveltekit-preload-data="hover">
 		<div style="display: contents">%sveltekit.body%</div>
