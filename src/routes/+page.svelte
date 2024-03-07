@@ -1,6 +1,8 @@
 <script>
 	import { initState, moveRight, moveLeft, toggleMode } from '$lib/state.ts';
+	import { onMount } from 'svelte';
 
+	let appNode;
 	let state = initState;
 
 	function handleKeydown (ev) {
@@ -19,9 +21,11 @@
 		default:
 		}
 	}
+
+	onMount(() => appNode.focus());
 </script>
 
-<div class="app" on:keydown={handleKeydown} role="grid" tabindex="0">
+<div class="app" bind:this={appNode} on:keydown={handleKeydown} role="grid" tabindex="0">
 	<p class="letters">
 		{#each state.string as letter, i}
 			<span class="letter {i == state.cursor ? 'cursor' : ''}">{letter}</span>
