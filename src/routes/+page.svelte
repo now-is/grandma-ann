@@ -40,14 +40,14 @@
 
 <style>
 	.app {
-		width: calc(16 * 1.5em + 15 * 0.35em);
-		padding: 0.35em;
+		padding: var(--tile-gap);
+		width: calc(var(--tile-row-size) * var(--tile-width) + (var(--tile-row-size) + 1) * var(--tile-gap));
 	}
 
 	.letters {
 		display: flex;
 		flex-wrap: wrap;
-		gap: 0.35em;
+		gap: var(--tile-gap);
 	}
 
 	.letter {

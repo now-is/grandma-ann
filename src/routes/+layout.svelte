@@ -12,6 +12,12 @@
 		margin: 0;
 	}
 
+	:root {
+		--tile-gap: 0.35em;
+		--tile-width: 1.5em;
+		--tile-row-size: 12;
+	}
+
 	.container {
 		padding: 1em;
 		font-family: sans-serif;
