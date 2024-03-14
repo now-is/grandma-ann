@@ -25,5 +25,6 @@
 
 	h1 {
 		font-size: 120%;
+		margin-bottom: 12px;
 	}
 </style>

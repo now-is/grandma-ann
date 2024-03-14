@@ -44,6 +44,11 @@
 		width: calc(var(--tile-row-size) * var(--tile-width) + (var(--tile-row-size) + 1) * var(--tile-gap));
 	}
 
+	.app:focus {
+		outline: 1px solid #eeeeee;
+		background-color: #3b3b38;
+	}
+
 	.letters {
 		display: flex;
 		flex-wrap: wrap;
