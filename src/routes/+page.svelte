@@ -65,8 +65,8 @@
 
 	.letter.cursor {
 		font-weight: bold;
-		border-color: black;
-		background-color: #cccccc;
+		border-color: #e4e4e4;
+		background-color: #707070;
 	}
 
 	.status {
