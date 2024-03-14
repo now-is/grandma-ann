@@ -1,5 +1,5 @@
 <div class="container">
-	<h1>Grandma Ann</h1>
+	<h1>Grandma Ann · That vimsical domwager</h1>
 	<slot/>
 </div>
 
@@ -19,12 +19,17 @@
 	}
 
 	.container {
-		padding: 1em;
 		font-family: sans-serif;
+		padding: 1em;
 	}
 
 	h1 {
-		font-size: 120%;
+		color: #fe0;
+		font-size: 110%;
+		font-weight: normal;
+		letter-spacing: 0.03em;
 		margin-bottom: 12px;
+		text-transform: uppercase;
+		word-spacing: 0.07em;
 	}
 </style>
