@@ -36,13 +36,43 @@ describe('A state transition', () => {
 		});
 	});
 
-	it('should drag right after toggling mode', () => {
-		const state = L.toggleMode(initState);
+	it('should drag right in drag mode', () => {
+		const state = L.setModeDrag(initState);
 		expect(L.moveRight(state)).toEqual({
 			... state,
 			string: 'hte quick brown'.split(''),
+			mode: 'drag',
 			cursor: 1,
 			moves: 1,
+		});
+	});
+
+	it('should drag left in drag mode', () => {
+		let state = initState;
+		for (let i = 0; i < 5; i++) {
+			state = L.moveRight(state);
+		}
+		expect(state).toEqual({
+			... initState,
+			cursor: 5,
+			moves: 5,
+		});
+
+		state = L.setModeDrag(state);
+		expect(state).toEqual({
+			... initState,
+			mode: 'drag',
+			cursor: 5,
+			moves: 5,
+		});
+
+		state = L.moveLeft(state);
+		expect(state).toEqual({
+			... initState,
+			mode: 'drag',
+			string: 'the uqick brown'.split(''), // NO!
+			cursor: 4,
+			moves: 6,
 		});
 	});
 });

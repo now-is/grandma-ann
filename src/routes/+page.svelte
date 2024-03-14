@@ -1,5 +1,5 @@
 <script>
-	import { initState, moveRight, moveLeft, toggleMode } from '$lib/state.ts';
+	import { initState, moveRight, moveLeft, setModeDrag, setModePan } from '$lib/state.ts';
 	import { onMount } from 'svelte';
 
 	let appNode;
@@ -15,8 +15,13 @@
 		case 'l':
 			state = moveRight(state);
 			break;
-		case ' ':
-			state = toggleMode(state);
+		case 'd':
+		case 'D':
+			state = setModeDrag(state);
+			break;
+		case 'p':
+		case 'P':
+			state = setModePan(state);
 			break;
 		default:
 		}

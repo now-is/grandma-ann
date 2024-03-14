@@ -2,8 +2,10 @@
 
 // XXX move declarations away?
 enum Mode {
-	Drag = "drag",
-	Pan = "pan",
+	Drag = 'drag',
+	Pan = 'pan',
+	ResizeLeft = 'resizeleft',
+	ResizeRight = 'resizeright',
 }
 
 type State = {
@@ -28,22 +30,26 @@ export function dragRight(st: State) : State {
 	if (st.cursor >= st.string.length - 1) {
 		return st;
 	}
-	const letter = st.string[st.cursor];
-	st.string[st.cursor] = st.string[st.cursor+1];
-	st.string[st.cursor+1] = letter;
-	st.cursor += 1;
-	return st;
+	const new_string = [];
+	for (let i = 0; i < st.string.length; i++) {
+		new_string[i] = st.string[i];
+	}
+	new_string[st.cursor+1] = st.string[st.cursor];
+	new_string[st.cursor] = st.string[st.cursor+1];
+	return {... st, cursor: st.cursor + 1, string: new_string };
 }
 
 export function dragLeft(st: State) : State {
 	if (st.cursor <= 0) {
 		return st;
 	}
-	const letter = st.string[st.cursor];
-	st.string[st.cursor] = st.string[st.cursor-1];
-	st.string[st.cursor-1] = letter;
-	st.cursor -= 1;
-	return st;
+	const new_string = [];
+	for (let i = 0; i < st.string.length; i++) {
+		new_string[i] = st.string[i];
+	}
+	new_string[st.cursor-1] = st.string[st.cursor];
+	new_string[st.cursor] = st.string[st.cursor-1];
+	return {... st, cursor: st.cursor - 1, string: new_string };
 }
 
 export function panRight(st: State) : State {
@@ -70,6 +76,22 @@ export function moveLeft(st: State) : State {
 	return {...st, moves: st.moves + 1 };
 }
 
-export function toggleMode(st: State) : State {
-	return {...st, mode: st.mode === Mode.Drag ? Mode.Pan : Mode.Drag };
+export function setMode(st: State, mode: Mode) : State {
+	return {...st, mode: mode };
+}
+
+export function setModeDrag(st: State) : State {
+	return setMode(st, Mode.Drag);
+}
+
+export function setModePan(st: State) : State {
+	return setMode(st, Mode.Pan);
+}
+
+export function setModeResizeLeft(st: State) : State {
+	return setMode(st, Mode.ResizeLeft);
+}
+
+export function setModeResizeRight(st: State) : State {
+	return setMode(st, Mode.ResizeLeft);
 }
