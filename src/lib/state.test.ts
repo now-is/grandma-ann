@@ -2,11 +2,11 @@ import { describe, it, expect } from 'vitest';
 import * as L from './state';
 
 // length is 15, this will be used below
-const initString = 'the quick brown'.split('');
+const initBoard = 'the quick brown'.split('');
 
 const initState = {
 	... L.initState,
-	string: initString,
+	board: initBoard,
 }
 
 describe('A state transition', () => {
@@ -20,7 +20,7 @@ describe('A state transition', () => {
 	});
 
 	it('should stop rightmost', () => {
-		const state = { ...initState, cursor: initString.length - 1 };
+		const state = { ...initState, cursor: initBoard.length - 1 };
 		expect(L.moveRight(state)).toEqual({
 			... state,
 			moves: 1,
@@ -40,7 +40,7 @@ describe('A state transition', () => {
 		const state = L.setModeDrag(initState);
 		expect(L.moveRight(state)).toEqual({
 			... state,
-			string: 'hte quick brown'.split(''),
+			board: 'hte quick brown'.split(''),
 			mode: 'drag',
 			cursor: 1,
 			moves: 1,
@@ -70,7 +70,7 @@ describe('A state transition', () => {
 		expect(state).toEqual({
 			... initState,
 			mode: 'drag',
-			string: 'the uqick brown'.split(''), // NO!
+			board: 'the uqick brown'.split(''), // NO!
 			cursor: 4,
 			moves: 6,
 		});

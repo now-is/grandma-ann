@@ -9,53 +9,51 @@ enum Mode {
 }
 
 type State = {
-	string: string[];
-	height: number;
-	width: number;
+	target: string[];
+	board: string[];
 	cursor: number;
 	mode: Mode;
 	moves: number;
 }
 
 export const initState: State = {
-	string: 'the quick brown fox jumped over the lazy dog'.split(''),
-	height: 4,
-	width: 8,
+	target: [],
+	board: 'the quick brown fox jumps over the lazy dog'.split(''),
 	cursor: 0,
 	mode: Mode.Pan,
 	moves: 0,
 };
 
 export function dragRight(st: State) : State {
-	if (st.cursor >= st.string.length - 1) {
+	if (st.cursor >= st.board.length - 1) {
 		return st;
 	}
-	const new_string = [];
-	for (let i = 0; i < st.string.length; i++) {
-		new_string[i] = st.string[i];
+	const new_board = [];
+	for (let i = 0; i < st.board.length; i++) {
+		new_board[i] = st.board[i];
 	}
-	new_string[st.cursor+1] = st.string[st.cursor];
-	new_string[st.cursor] = st.string[st.cursor+1];
-	return {... st, cursor: st.cursor + 1, string: new_string };
+	new_board[st.cursor+1] = st.board[st.cursor];
+	new_board[st.cursor] = st.board[st.cursor+1];
+	return {... st, cursor: st.cursor + 1, board: new_board };
 }
 
 export function dragLeft(st: State) : State {
 	if (st.cursor <= 0) {
 		return st;
 	}
-	const new_string = [];
-	for (let i = 0; i < st.string.length; i++) {
-		new_string[i] = st.string[i];
+	const new_board = [];
+	for (let i = 0; i < st.board.length; i++) {
+		new_board[i] = st.board[i];
 	}
-	new_string[st.cursor-1] = st.string[st.cursor];
-	new_string[st.cursor] = st.string[st.cursor-1];
-	return {... st, cursor: st.cursor - 1, string: new_string };
+	new_board[st.cursor-1] = st.board[st.cursor];
+	new_board[st.cursor] = st.board[st.cursor-1];
+	return {... st, cursor: st.cursor - 1, board: new_board };
 }
 
 export function panRight(st: State) : State {
 	return {
 		...st,
-		cursor: st.cursor >= st.string.length - 1 ? st.cursor : st.cursor + 1
+		cursor: st.cursor >= st.board.length - 1 ? st.cursor : st.cursor + 1
 	};
 }
 
@@ -76,7 +74,7 @@ export function moveLeft(st: State) : State {
 	return {...st, moves: st.moves + 1 };
 }
 
-export function setMode(st: State, mode: Mode) : State {
+function setMode(st: State, mode: Mode) : State {
 	return {...st, mode: mode };
 }
 

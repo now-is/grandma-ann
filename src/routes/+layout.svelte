@@ -15,7 +15,7 @@
 	:root {
 		--tile-gap: 0.35em;
 		--tile-width: 1.5em;
-		--tile-row-size: 12;
+		--tile-row-size: 11;
 	}
 
 	.container {

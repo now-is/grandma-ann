@@ -32,7 +32,7 @@
 
 <div class="app" bind:this={appNode} on:keydown={handleKeydown} role="grid" tabindex="0">
 	<p class="letters">
-		{#each state.string as letter, i}
+		{#each state.board as letter, i}
 			<span class="letter {i == state.cursor ? 'cursor' : ''}">{letter}</span>
 		{/each}
 	</p>
