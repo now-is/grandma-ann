@@ -39,7 +39,7 @@
 <div class="app" class:finished={finished} bind:this={appNode} on:keydown={handleKeydown} role="grid" tabindex="0">
 	<p class="letters">
 		{#each state.board as letter, i}
-			<span class="letter {i == state.cursor ? 'cursor' : ''}">{letter}</span>
+			<span class="letter {state.cursorL <= i && i <= state.cursorR ? 'cursor' : ''}">{letter}</span>
 		{/each}
 	</p>
 
