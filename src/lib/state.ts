@@ -96,22 +96,26 @@ export function dragLeft(st: State) : State {
 }
 
 export function panRight(st: State) : State {
-	const isMoveable = st.cursorR < st.board.length - 1;
+	if (st.cursorR >= st.board.length - 1) {
+		return st;
+	}
 	return {
 		...st,
-		cursorL: isMoveable ? st.cursorL + 1 : st.cursorL,
-		cursorR: isMoveable ? st.cursorR + 1 : st.cursorR,
-		moves: isMoveable ? st.moves + 1 : st.moves,
+		cursorL: st.cursorL + 1,
+		cursorR: st.cursorR + 1,
+		moves: st.moves + 1,
 	};
 }
 
 export function panLeft(st: State) : State {
-	const isMoveable = st.cursorL > 0;
+	if (st.cursorL <= 0) {
+		return st;
+	}
 	return {
 		...st,
-		cursorL: isMoveable ? st.cursorL - 1 : 0,
-		cursorR: isMoveable ? st.cursorR - 1 : 0,
-		moves:  isMoveable ? st.moves + 1 : st.moves,
+		cursorL: st.cursorL - 1,
+		cursorR: st.cursorR - 1,
+		moves: st.moves + 1,
 	};
 }
 
