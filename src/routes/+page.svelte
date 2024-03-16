@@ -1,11 +1,17 @@
 <script>
-	import { initState, moveRight, moveLeft, setModeDrag, setModePan, scrambled } from '$lib/state.ts';
+	import { initState, moveRight, moveLeft, setModeDrag, setModePan, scrambled, done } from '$lib/state.ts';
 	import { onMount } from 'svelte';
 
 	let appNode;
 	let state = scrambled(initState);
 
+	$: finished = done(state);
+
 	function handleKeydown (ev) {
+		if (finished) {
+			return;
+		}
+
 		switch (ev.key) {
 		case 'H':
 		case 'h':
@@ -30,7 +36,7 @@
 	onMount(() => appNode.focus());
 </script>
 
-<div class="app" bind:this={appNode} on:keydown={handleKeydown} role="grid" tabindex="0">
+<div class="app" class:finished={finished} bind:this={appNode} on:keydown={handleKeydown} role="grid" tabindex="0">
 	<p class="letters">
 		{#each state.board as letter, i}
 			<span class="letter {i == state.cursor ? 'cursor' : ''}">{letter}</span>
@@ -52,6 +58,10 @@
 	.app:focus {
 		outline: 1px solid #eeeeee;
 		background-color: #3b3b38;
+	}
+
+	.app.finished {
+		background-color: #331111;
 	}
 
 	.letters {
@@ -79,9 +89,20 @@
 		background-color: #707070;
 	}
 
+	.finished .letter.cursor {
+		background-color: initial;
+		font-weight: initial;
+		border-color: #aaa;
+	}
+
 	.status {
 		margin-block-start: 1em;
 		display: flex;
 		justify-content: space-between;
+	}
+
+	.mode, .moves {
+		text-transform: uppercase;
+		font-size: 0.75em;
 	}
 </style>

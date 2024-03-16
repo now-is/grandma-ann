@@ -1,6 +1,5 @@
 // place files you want to import through the `$lib` alias in this folder.
 
-// XXX move declarations away?
 enum Mode {
 	Drag = 'drag',
 	Pan = 'pan',
@@ -17,15 +16,24 @@ type State = {
 }
 
 export const initState: State = {
-	target: [],
-	board: 'the quick brown fox jumps over the lazy dog'.split(''),
+	target: 'the quick brown fox'.split(''),
+	board:  'the quick brown fox'.split(''),
 	cursor: 0,
-	mode: Mode.Pan,
-	moves: 0,
+	mode:   Mode.Pan,
+	moves:  0,
 };
 
 function uniform(max: number): number {
 	return Math.floor(Math.random() * max);
+}
+
+export function done(st: State): boolean {
+	for (let i = 0; i < st.target.length; i++) {
+		if (st.target[i] !== st.board[i]) {
+			return false;
+		}
+	}
+	return true;
 }
 
 // Fisher-Yates

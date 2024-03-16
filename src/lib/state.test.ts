@@ -7,6 +7,7 @@ const initBoard = 'the quick brown'.split('');
 const initState = {
 	... L.initState,
 	board: initBoard,
+	target: initBoard,
 }
 
 interface Histogram {
@@ -25,6 +26,16 @@ describe('Scrambling', () => {
 			return h;
 		}
 		expect(histogram(state.board)).toEqual(histogram(initState.board));
+	});
+});
+
+describe('Doneness', () => {
+	it('should be true of initState', () => {
+		expect(L.done(initState)).toEqual(true);
+	});
+	it('should be false of a typical state', () => {
+		const state = L.moveRight(L.setModeDrag(initState));
+		expect(L.done(state)).toEqual(false);
 	});
 });
 
