@@ -10,21 +10,18 @@ const initState = {
 }
 
 describe('A state transition', () => {
-	// XXX move count will be made more lenient
 	it('should stop leftmost', () => {
-		const state = initState;
-		expect(L.moveLeft(state)).toEqual({
-			... state,
-			moves: 1,
-		});
+		let state = initState;
+		expect(L.moveLeft(state)).toEqual(state);
+		state = L.setModeDrag(state);
+		expect(L.moveLeft(state)).toEqual(state);
 	});
 
 	it('should stop rightmost', () => {
-		const state = { ...initState, cursor: initBoard.length - 1 };
-		expect(L.moveRight(state)).toEqual({
-			... state,
-			moves: 1,
-		});
+		let state = { ...initState, cursor: initBoard.length - 1 };
+		expect(L.moveRight(state)).toEqual(state);
+		state = L.setModeDrag(state);
+		expect(L.moveRight(state)).toEqual(state);
 	});
 
 	it('should pan right from initial state', () => {

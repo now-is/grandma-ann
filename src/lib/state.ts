@@ -34,7 +34,12 @@ export function dragRight(st: State) : State {
 	}
 	new_board[st.cursor+1] = st.board[st.cursor];
 	new_board[st.cursor] = st.board[st.cursor+1];
-	return {... st, cursor: st.cursor + 1, board: new_board };
+	return {
+		... st,
+		cursor: st.cursor + 1,
+		board: new_board,
+		moves: st.moves + 1,
+   	};
 }
 
 export function dragLeft(st: State) : State {
@@ -47,31 +52,36 @@ export function dragLeft(st: State) : State {
 	}
 	new_board[st.cursor-1] = st.board[st.cursor];
 	new_board[st.cursor] = st.board[st.cursor-1];
-	return {... st, cursor: st.cursor - 1, board: new_board };
+	return {
+		... st,
+		board: new_board,
+		cursor: st.cursor - 1,
+		moves: st.moves + 1,
+	};
 }
 
 export function panRight(st: State) : State {
 	return {
 		...st,
-		cursor: st.cursor >= st.board.length - 1 ? st.cursor : st.cursor + 1
+		cursor: st.cursor >= st.board.length - 1 ? st.cursor : st.cursor + 1,
+		moves: st.cursor >= st.board.length - 1 ? st.moves : st.moves + 1,
 	};
 }
 
 export function panLeft(st: State) : State {
 	return {
 		...st,
-		cursor: st.cursor <= 0 ? 0 : st.cursor - 1
+		cursor: st.cursor <= 0 ? 0 : st.cursor - 1,
+		moves:  st.cursor <= 0 ? st.moves : st.moves + 1,
 	};
 }
 
 export function moveRight(st: State) : State {
-	st = st.mode === Mode.Drag ? dragRight(st) : panRight(st);
-	return {...st, moves: st.moves + 1 };
+	return st.mode === Mode.Drag ? dragRight(st) : panRight(st);
 }
 
 export function moveLeft(st: State) : State {
-	st = st.mode === Mode.Drag ? dragLeft(st) : panLeft(st);
-	return {...st, moves: st.moves + 1 };
+	return st.mode === Mode.Drag ? dragLeft(st) : panLeft(st);
 }
 
 function setMode(st: State, mode: Mode) : State {
@@ -91,5 +101,5 @@ export function setModeResizeLeft(st: State) : State {
 }
 
 export function setModeResizeRight(st: State) : State {
-	return setMode(st, Mode.ResizeLeft);
+	return setMode(st, Mode.ResizeRight);
 }
