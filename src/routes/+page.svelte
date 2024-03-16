@@ -1,9 +1,9 @@
 <script>
-	import { initState, moveRight, moveLeft, setModeDrag, setModePan } from '$lib/state.ts';
+	import { initState, moveRight, moveLeft, setModeDrag, setModePan, scrambled } from '$lib/state.ts';
 	import { onMount } from 'svelte';
 
 	let appNode;
-	let state = initState;
+	let state = scrambled(initState);
 
 	function handleKeydown (ev) {
 		switch (ev.key) {

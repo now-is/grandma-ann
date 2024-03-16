@@ -9,6 +9,25 @@ const initState = {
 	board: initBoard,
 }
 
+interface Histogram {
+	[index: string]: number;
+}
+
+describe('Scrambling', () => {
+	it('should be a permutation', () => {
+		const state = L.scrambled(initState);
+		function histogram (board: string[]): Histogram {
+			const h: Histogram = {};
+			for (let i = 0; i < board.length; i++) {
+				h[board[i]] ??= 0;
+				h[board[i]]++;
+			}
+			return h;
+		}
+		expect(histogram(state.board)).toEqual(histogram(initState.board));
+	});
+});
+
 describe('A state transition', () => {
 	it('should stop leftmost', () => {
 		let state = initState;
@@ -67,7 +86,7 @@ describe('A state transition', () => {
 		expect(state).toEqual({
 			... initState,
 			mode: 'drag',
-			board: 'the uqick brown'.split(''), // NO!
+			board: 'the uqick brown'.split(''),
 			cursor: 4,
 			moves: 6,
 		});

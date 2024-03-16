@@ -24,6 +24,29 @@ export const initState: State = {
 	moves: 0,
 };
 
+function uniform(max: number): number {
+	return Math.floor(Math.random() * max);
+}
+
+// Fisher-Yates
+export function scrambled(st: State): State {
+	const n = st.board.length;
+	const new_board: string[] = [];
+	for (let i = 0; i < n; i++) {
+		new_board[i] = st.board[i];
+	}
+	for (let i = 0; i <= n - 2; i++) {
+		const j = i + uniform(n-i);
+		const tmp = new_board[j];
+		new_board[j] = new_board[i];
+		new_board[i] = tmp;
+	}
+	return {
+		...st,
+		board: new_board,
+	};
+}
+
 export function dragRight(st: State) : State {
 	if (st.cursor >= st.board.length - 1) {
 		return st;
