@@ -10,7 +10,8 @@ enum Mode {
 type State = {
 	target: string[];
 	board: string[];
-	cursor: number;
+	cursorL: number;
+	cursorR: number;
 	mode: Mode;
 	moves: number;
 }
@@ -18,7 +19,8 @@ type State = {
 export const initState: State = {
 	target: 'the quick brown fox'.split(''),
 	board:  'the quick brown fox'.split(''),
-	cursor: 0,
+	cursorL: 0,
+	cursorR: 0,
 	mode:   Mode.Pan,
 	moves:  0,
 };
@@ -56,37 +58,37 @@ export function scrambled(st: State): State {
 }
 
 export function dragRight(st: State) : State {
-	if (st.cursor >= st.board.length - 1) {
+	if (st.cursorL >= st.board.length - 1) {
 		return st;
 	}
 	const new_board = [];
 	for (let i = 0; i < st.board.length; i++) {
 		new_board[i] = st.board[i];
 	}
-	new_board[st.cursor+1] = st.board[st.cursor];
-	new_board[st.cursor] = st.board[st.cursor+1];
+	new_board[st.cursorL+1] = st.board[st.cursorL];
+	new_board[st.cursorL] = st.board[st.cursorL+1];
 	return {
 		... st,
-		cursor: st.cursor + 1,
+		cursorL: st.cursorL + 1,
 		board: new_board,
 		moves: st.moves + 1,
    	};
 }
 
 export function dragLeft(st: State) : State {
-	if (st.cursor <= 0) {
+	if (st.cursorL <= 0) {
 		return st;
 	}
 	const new_board = [];
 	for (let i = 0; i < st.board.length; i++) {
 		new_board[i] = st.board[i];
 	}
-	new_board[st.cursor-1] = st.board[st.cursor];
-	new_board[st.cursor] = st.board[st.cursor-1];
+	new_board[st.cursorL-1] = st.board[st.cursorL];
+	new_board[st.cursorL] = st.board[st.cursorL-1];
 	return {
 		... st,
 		board: new_board,
-		cursor: st.cursor - 1,
+		cursorL: st.cursorL - 1,
 		moves: st.moves + 1,
 	};
 }
@@ -94,16 +96,16 @@ export function dragLeft(st: State) : State {
 export function panRight(st: State) : State {
 	return {
 		...st,
-		cursor: st.cursor >= st.board.length - 1 ? st.cursor : st.cursor + 1,
-		moves: st.cursor >= st.board.length - 1 ? st.moves : st.moves + 1,
+		cursorL: st.cursorL >= st.board.length - 1 ? st.cursorL : st.cursorL + 1,
+		moves: st.cursorL >= st.board.length - 1 ? st.moves : st.moves + 1,
 	};
 }
 
 export function panLeft(st: State) : State {
 	return {
 		...st,
-		cursor: st.cursor <= 0 ? 0 : st.cursor - 1,
-		moves:  st.cursor <= 0 ? st.moves : st.moves + 1,
+		cursorL: st.cursorL <= 0 ? 0 : st.cursorL - 1,
+		moves:  st.cursorL <= 0 ? st.moves : st.moves + 1,
 	};
 }
 

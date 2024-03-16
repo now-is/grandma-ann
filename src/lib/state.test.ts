@@ -48,7 +48,7 @@ describe('A state transition', () => {
 	});
 
 	it('should stop rightmost', () => {
-		let state = { ...initState, cursor: initBoard.length - 1 };
+		let state = { ...initState, cursorL: initBoard.length - 1 };
 		expect(L.moveRight(state)).toEqual(state);
 		state = L.setModeDrag(state);
 		expect(L.moveRight(state)).toEqual(state);
@@ -58,7 +58,7 @@ describe('A state transition', () => {
 		const state = initState;
 		expect(L.moveRight(state)).toEqual({
 			... state,
-			cursor: 1,
+			cursorL: 1,
 			moves: 1,
 		});
 	});
@@ -69,7 +69,7 @@ describe('A state transition', () => {
 			... state,
 			board: 'hte quick brown'.split(''),
 			mode: 'drag',
-			cursor: 1,
+			cursorL: 1,
 			moves: 1,
 		});
 	});
@@ -81,7 +81,7 @@ describe('A state transition', () => {
 		}
 		expect(state).toEqual({
 			... initState,
-			cursor: 5,
+			cursorL: 5,
 			moves: 5,
 		});
 
@@ -89,7 +89,7 @@ describe('A state transition', () => {
 		expect(state).toEqual({
 			... initState,
 			mode: 'drag',
-			cursor: 5,
+			cursorL: 5,
 			moves: 5,
 		});
 
@@ -98,8 +98,9 @@ describe('A state transition', () => {
 			... initState,
 			mode: 'drag',
 			board: 'the uqick brown'.split(''),
-			cursor: 4,
+			cursorL: 4,
 			moves: 6,
 		});
 	});
+
 });
