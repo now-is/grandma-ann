@@ -119,6 +119,14 @@ export function panLeft(st: State) : State {
 	};
 }
 
+export function resizeRight(st: State) : State {
+	return st;
+}
+
+export function resizeLeft(st: State) : State {
+	return st;
+}
+
 export function moveRight(st: State) : State {
 	return st.mode === Mode.Drag ? dragRight(st) : panRight(st);
 }

@@ -51,7 +51,7 @@ describe('Doneness', () => {
 	});
 });
 
-describe('A state transition', () => {
+describe('Pans', () => {
 	it('should stop leftmost', () => {
 		let state = initState;
 		expect(L.moveLeft(state)).toEqual(state);
@@ -82,8 +82,10 @@ describe('A state transition', () => {
 		});
 		expectCursorInvariant(state);
 	});
+});
 
-	it('should drag right in drag mode', () => {
+describe('Drags', () => {
+	it('should drag right', () => {
 		const state = L.setModeDrag(initState);
 		expect(L.moveRight(state)).toEqual({
 			... state,
@@ -96,7 +98,7 @@ describe('A state transition', () => {
 		expectCursorInvariant(state);
 	});
 
-	it('should drag left in drag mode', () => {
+	it('should drag left', () => {
 		let state = initState;
 		for (let i = 0; i < 5; i++) {
 			state = L.moveRight(state);
@@ -129,5 +131,4 @@ describe('A state transition', () => {
 		});
 		expectCursorInvariant(state);
 	});
-
 });
