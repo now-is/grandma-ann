@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import * as L from './state';
 
 // length is 15, this will be used below
@@ -10,12 +10,23 @@ const initState = {
 	target: initBoard,
 }
 
+interface State {
+	cursorL: number;
+	cursorR: number;
+	board: string[];
+}
+
 interface Histogram {
 	[index: string]: number;
 }
 
-describe('Scrambling', () => {
+function expectCursorInvariant (st: State) {
+	expect(0 <= st.cursorL && st.cursorL <= st.cursorR && st.cursorR < st.board.length).toBeTruthy();
+}
+
+describe('Initialization', () => {
 	it('should be a permutation', () => {
+		expectCursorInvariant(initState);
 		const state = L.scrambled(initState);
 		function histogram (board: string[]): Histogram {
 			const h: Histogram = {};
@@ -26,6 +37,7 @@ describe('Scrambling', () => {
 			return h;
 		}
 		expect(histogram(state.board)).toEqual(histogram(initState.board));
+		expectCursorInvariant(state);
 	});
 });
 
@@ -45,13 +57,19 @@ describe('A state transition', () => {
 		expect(L.moveLeft(state)).toEqual(state);
 		state = L.setModeDrag(state);
 		expect(L.moveLeft(state)).toEqual(state);
+		expectCursorInvariant(state);
 	});
 
 	it('should stop rightmost', () => {
-		let state = { ...initState, cursorL: initBoard.length - 1 };
+		let state = {
+			...initState,
+			cursorL: initBoard.length - 1,
+			cursorR: initBoard.length - 1,
+		};
 		expect(L.moveRight(state)).toEqual(state);
 		state = L.setModeDrag(state);
 		expect(L.moveRight(state)).toEqual(state);
+		expectCursorInvariant(state);
 	});
 
 	it('should pan right from initial state', () => {
@@ -59,8 +77,10 @@ describe('A state transition', () => {
 		expect(L.moveRight(state)).toEqual({
 			... state,
 			cursorL: 1,
+			cursorR: 1,
 			moves: 1,
 		});
+		expectCursorInvariant(state);
 	});
 
 	it('should drag right in drag mode', () => {
@@ -70,8 +90,10 @@ describe('A state transition', () => {
 			board: 'hte quick brown'.split(''),
 			mode: 'drag',
 			cursorL: 1,
+			cursorR: 1,
 			moves: 1,
 		});
+		expectCursorInvariant(state);
 	});
 
 	it('should drag left in drag mode', () => {
@@ -82,14 +104,17 @@ describe('A state transition', () => {
 		expect(state).toEqual({
 			... initState,
 			cursorL: 5,
+			cursorR: 5,
 			moves: 5,
 		});
+		expectCursorInvariant(state);
 
 		state = L.setModeDrag(state);
 		expect(state).toEqual({
 			... initState,
 			mode: 'drag',
 			cursorL: 5,
+			cursorR: 5,
 			moves: 5,
 		});
 
@@ -99,8 +124,10 @@ describe('A state transition', () => {
 			mode: 'drag',
 			board: 'the uqick brown'.split(''),
 			cursorL: 4,
+			cursorR: 4,
 			moves: 6,
 		});
+		expectCursorInvariant(state);
 	});
 
 });
