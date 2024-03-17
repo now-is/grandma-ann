@@ -28,7 +28,7 @@ export function initState(targetString: string): State {
 	}
 };
 
-function uniform(max: number): number {
+export function uniform(max: number): number {
 	return Math.floor(Math.random() * max);
 }
 

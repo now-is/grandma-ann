@@ -1,9 +1,11 @@
 <script>
 	import * as S from '$lib/state.ts';
-	import { onMount } from 'svelte';
+	import { titles } from '$lib/titles.ts';
 
 	let appNode;
-	let state = S.scrambled(S.initState('the quick brown fox'));
+	let state = S.scrambled(S.initState(
+		titles[S.uniform(titles.length)]
+	));
 
 	$: finished = S.done(state);
 
@@ -40,8 +42,6 @@
 		default:
 		}
 	}
-
-	onMount(() => appNode.focus());
 </script>
 
 <div class="app" class:finished={finished} bind:this={appNode} on:keydown={handleKeydown} role="grid" tabindex="0">
