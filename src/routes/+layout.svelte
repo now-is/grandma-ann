@@ -15,7 +15,7 @@
 	:root {
 		--tile-gap: 0.35em;
 		--tile-width: 1.5em;
-		--tile-row-size: 11;
+		--tile-row-size: 12;
 	}
 
 	.container {
@@ -25,8 +25,7 @@
 
 	h1 {
 		color: #fe0;
-		font-size: 110%;
-		font-weight: normal;
+		font-size: 90%;
 		letter-spacing: 0.03em;
 		margin-bottom: 12px;
 		text-transform: uppercase;

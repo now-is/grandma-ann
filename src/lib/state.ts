@@ -239,3 +239,18 @@ export function setModeResizeLeft(st: State) : State {
 export function setModeResizeRight(st: State) : State {
 	return setMode(st, Mode.ResizeRight);
 }
+
+export function toggleMode(st: State) : State {
+	switch(st.mode) {
+	case Mode.Drag:
+		return setModePan(st);
+	case Mode.Pan:
+		return setModeDrag(st);
+	case Mode.ResizeRight:
+		return setModeResizeLeft(st);
+	case Mode.ResizeLeft:
+		return setModeResizeRight(st);
+	default:
+		return st;
+	}
+}

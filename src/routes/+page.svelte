@@ -39,6 +39,9 @@
 		case 'Z':
 			state = S.setModeResizeRight(state);
 			break;
+		case ' ':
+			state = S.toggleMode(state);
+			break;
 		default:
 		}
 	}
@@ -57,12 +60,46 @@
 	</p>
 </div>
 
+<div class="help">
+	<p>
+	This word game is a variant an old vim-based anagram tool. So yeah, you
+	need a keyboard ...
+	</p>
+
+	<p>
+	Focus on the grid to start the game—tab or click. It has vim-like modes,
+	vim-like movement, and a movie title to guess.
+	</p>
+
+	<p>
+	Modes are drag, pan, resize-left and resize-right, activated by d, p, s,
+	and z. Actual movement is done by h and l, for left and right moves.
+	</p>
+
+	<p>
+	The space key toggles drag/pan, and resize left/right. That's it,
+	experiment and rearrange the tiles!
+	</p>
+</div>
+
 <style>
+	.app, .help {
+		width: calc(var(--tile-row-size) * var(--tile-width) + (var(--tile-row-size) + 1) * var(--tile-gap));
+	}
+
 	.app {
 		padding: var(--tile-gap);
-		width: calc(var(--tile-row-size) * var(--tile-width) + (var(--tile-row-size) + 1) * var(--tile-gap));
 		outline: 1px solid #eeeeee;
 		filter: blur(0.15em);
+	}
+
+	.help {
+		margin-top: 2em;
+		color: white;
+	}
+
+	.help p {
+		margin: 1em 0;
 	}
 
 	.app:focus {
