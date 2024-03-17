@@ -132,3 +132,82 @@ describe('Drags', () => {
 		expectCursorInvariant(state);
 	});
 });
+
+describe('Resizes', () => {
+	let state = initState;
+	it('should not move left on init', () => {
+		state = L.setModeResizeLeft(state);
+		state = L.moveLeft(state);
+		expect(state).toEqual({
+			...initState,
+			mode: 'resizeleft',
+		});
+		state = L.moveRight(state);
+		expect(state).toEqual({
+			...initState,
+			mode: 'resizeleft',
+		});
+	});
+	it('should resize right on init', () => {
+		state = L.setModeResizeRight(state);
+		for (let i = 0; i < 3; i++) {
+			state = L.moveRight(state);
+		}
+		expect(state).toEqual({
+			...initState,
+			mode: 'resizeright',
+			cursorR: 3,
+			moves: 3,
+		});
+	});
+	it('should pan right', () => {
+		state = L.setModePan(state);
+		for (let i = 0; i < 3; i++) {
+			state = L.moveRight(state);
+		}
+		expect(state).toEqual({
+			...initState,
+			mode: 'pan',
+			cursorL: 3,
+			cursorR: 6,
+			moves: 6,
+		});
+	});
+	it('should pan left', () => {
+		state = L.moveLeft(state);
+		expect(state).toEqual({
+			...initState,
+			mode: 'pan',
+			cursorL: 2,
+			cursorR: 5,
+			moves: 7,
+		});
+	});
+	it('should drag right', () => {
+		state = L.setModeDrag(state);
+		for (let i = 0; i < 3; i++) {
+			state = L.moveRight(state);
+		}
+		expect(state).toEqual({
+			...initState,
+			board: 'thicke qu brown'.split(''),
+			mode: 'drag',
+			cursorL: 5,
+			cursorR: 8,
+			moves: 10,
+		});
+	});
+	it('should drag left', () => {
+		for (let i = 0; i < 2; i++) {
+			state = L.moveRight(state);
+		}
+		expect(state).toEqual({
+			...initState,
+			board: 'thie quck brown'.split(''),
+			mode: 'drag',
+			cursorL: 5,
+			cursorR: 8,
+			moves: 10,
+		});
+	});
+});

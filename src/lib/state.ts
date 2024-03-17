@@ -119,20 +119,90 @@ export function panLeft(st: State) : State {
 	};
 }
 
-export function resizeRight(st: State) : State {
+export function resizeRightRight(st: State) : State {
+	if (st.cursorR >= st.board.length - 1) {
+		return st;
+	}
+	return {
+		...st,
+		cursorR: st.cursorR + 1,
+		moves: st.moves + 1,
+	};
 	return st;
 }
 
-export function resizeLeft(st: State) : State {
+export function resizeRightLeft(st: State) : State {
+	if (st.cursorR <= st.cursorL) {
+		return st;
+	}
+	return {
+		...st,
+		cursorR: st.cursorR - 1,
+		moves: st.moves + 1,
+	};
+	return st;
+}
+
+export function resizeLeftRight(st: State) : State {
+	if (st.cursorL >= st.cursorR) {
+		return st;
+	}
+	return {
+		...st,
+		cursorL: st.cursorL + 1,
+		moves: st.moves + 1,
+	};
+	return st;
+}
+
+export function resizeLeftLeft(st: State) : State {
+	if (st.cursorL <= 0) {
+		return st;
+	}
+	return {
+		...st,
+		cursorL: st.cursorL - 1,
+		moves: st.moves + 1,
+	};
 	return st;
 }
 
 export function moveRight(st: State) : State {
-	return st.mode === Mode.Drag ? dragRight(st) : panRight(st);
+	switch (st.mode) {
+	case Mode.Drag:
+		return dragRight(st);
+		break;
+	case Mode.Pan:
+		return panRight(st);
+		break;
+	case Mode.ResizeRight:
+		return resizeRightRight(st);
+		break;
+	case Mode.ResizeLeft:
+		return resizeLeftRight(st);
+		break;
+	default:
+		return st;
+	}
 }
 
 export function moveLeft(st: State) : State {
-	return st.mode === Mode.Drag ? dragLeft(st) : panLeft(st);
+	switch (st.mode) {
+	case Mode.Drag:
+		return dragLeft(st);
+		break;
+	case Mode.Pan:
+		return panLeft(st);
+		break;
+	case Mode.ResizeRight:
+		return resizeRightLeft(st);
+		break;
+	case Mode.ResizeLeft:
+		return resizeLeftLeft(st);
+		break;
+	default:
+		return st;
+	}
 }
 
 function setMode(st: State, mode: Mode) : State {
