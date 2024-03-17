@@ -69,7 +69,8 @@
 	}
 
 	.app.finished {
-		background-color: #331111;
+		background-color: #201818;
+		outline: 1px solid #ffcc00;
 	}
 
 	.letters {
