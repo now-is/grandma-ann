@@ -58,15 +58,21 @@ export function scrambled(st: State): State {
 }
 
 export function dragRight(st: State) : State {
-	if (st.cursorL >= st.board.length - 1) {
+	if (st.cursorR >= st.board.length - 1) {
 		return st;
 	}
 	const new_board = [];
 	for (let i = 0; i < st.board.length; i++) {
-		new_board[i] = st.board[i];
+		if (i == st.cursorL) {
+			new_board[i] = st.board[st.cursorR+1];
+		}
+		else if (st.cursorL < i && i <= st.cursorR + 1) {
+			new_board[i] = st.board[i-1];
+		}
+		else {
+			new_board[i] = st.board[i];
+		}
 	}
-	new_board[st.cursorL+1] = st.board[st.cursorL];
-	new_board[st.cursorL] = st.board[st.cursorL+1];
 	return {
 		... st,
 		cursorL: st.cursorL + 1,
@@ -82,10 +88,16 @@ export function dragLeft(st: State) : State {
 	}
 	const new_board = [];
 	for (let i = 0; i < st.board.length; i++) {
-		new_board[i] = st.board[i];
+		if (i == st.cursorR) {
+			new_board[i] = st.board[st.cursorL-1];
+		}
+		else if (st.cursorL - 1 <= i && i < st.cursorR) {
+			new_board[i] = st.board[i+1];
+		}
+		else {
+			new_board[i] = st.board[i];
+		}
 	}
-	new_board[st.cursorL-1] = st.board[st.cursorL];
-	new_board[st.cursorL] = st.board[st.cursorL-1];
 	return {
 		... st,
 		board: new_board,

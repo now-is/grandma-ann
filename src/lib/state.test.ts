@@ -199,15 +199,15 @@ describe('Resizes', () => {
 	});
 	it('should drag left', () => {
 		for (let i = 0; i < 2; i++) {
-			state = L.moveRight(state);
+			state = L.moveLeft(state);
 		}
 		expect(state).toEqual({
 			...initState,
 			board: 'thie quck brown'.split(''),
 			mode: 'drag',
-			cursorL: 5,
-			cursorR: 8,
-			moves: 10,
+			cursorL: 3,
+			cursorR: 6,
+			moves: 12,
 		});
 	});
 });
