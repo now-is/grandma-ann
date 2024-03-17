@@ -2,13 +2,7 @@ import { describe, expect, it } from 'vitest';
 import * as L from './state';
 
 // length is 15, this will be used below
-const initBoard = 'the quick brown'.split('');
-
-const initState = {
-	... L.initState,
-	board: initBoard,
-	target: initBoard,
-}
+const initState = L.initState('the quick brown');
 
 interface State {
 	cursorL: number;
@@ -63,8 +57,8 @@ describe('Pans', () => {
 	it('should stop rightmost', () => {
 		let state = {
 			...initState,
-			cursorL: initBoard.length - 1,
-			cursorR: initBoard.length - 1,
+			cursorL: initState.board.length - 1,
+			cursorR: initState.board.length - 1,
 		};
 		expect(L.moveRight(state)).toEqual(state);
 		state = L.setModeDrag(state);

@@ -3,7 +3,7 @@
 	import { onMount } from 'svelte';
 
 	let appNode;
-	let state = S.scrambled(S.initState);
+	let state = S.scrambled(S.initState('the quick brown fox'));
 
 	$: finished = S.done(state);
 

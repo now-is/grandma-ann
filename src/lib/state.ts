@@ -16,13 +16,16 @@ type State = {
 	moves: number;
 }
 
-export const initState: State = {
-	target: 'the quick brown fox'.split(''),
-	board:  'the quick brown fox'.split(''),
-	cursorL: 0,
-	cursorR: 0,
-	mode:   Mode.Pan,
-	moves:  0,
+export function initState(targetString: string): State {
+	const board = targetString.split('');
+	return {
+		target: board,
+		board:  board,
+		cursorL: 0,
+		cursorR: 0,
+		mode:   Mode.Pan,
+		moves:  0,
+	}
 };
 
 function uniform(max: number): number {
