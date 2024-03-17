@@ -1,11 +1,11 @@
 <script>
-	import { initState, moveRight, moveLeft, setModeDrag, setModePan, scrambled, done } from '$lib/state.ts';
+	import * as S from '$lib/state.ts';
 	import { onMount } from 'svelte';
 
 	let appNode;
-	let state = scrambled(initState);
+	let state = S.scrambled(S.initState);
 
-	$: finished = done(state);
+	$: finished = S.done(state);
 
 	function handleKeydown (ev) {
 		if (finished) {
@@ -15,19 +15,27 @@
 		switch (ev.key) {
 		case 'H':
 		case 'h':
-			state = moveLeft(state);
+			state = S.moveLeft(state);
 			break;
 		case 'L':
 		case 'l':
-			state = moveRight(state);
+			state = S.moveRight(state);
 			break;
 		case 'd':
 		case 'D':
-			state = setModeDrag(state);
+			state = S.setModeDrag(state);
 			break;
 		case 'p':
 		case 'P':
-			state = setModePan(state);
+			state = S.setModePan(state);
+			break;
+		case 's':
+		case 'S':
+			state = S.setModeResizeLeft(state);
+			break;
+		case 'z':
+		case 'Z':
+			state = S.setModeResizeRight(state);
 			break;
 		default:
 		}
