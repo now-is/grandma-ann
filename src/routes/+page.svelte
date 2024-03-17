@@ -61,16 +61,19 @@
 	.app {
 		padding: var(--tile-gap);
 		width: calc(var(--tile-row-size) * var(--tile-width) + (var(--tile-row-size) + 1) * var(--tile-gap));
+		outline: 1px solid #eeeeee;
+		filter: blur(0.15em);
 	}
 
 	.app:focus {
-		outline: 1px solid #eeeeee;
 		background-color: #3b3b38;
+		filter: blur(0);
 	}
 
 	.app.finished {
 		background-color: #201818;
 		outline: 1px solid #ffcc00;
+		filter: blur(0);
 	}
 
 	.letters {
