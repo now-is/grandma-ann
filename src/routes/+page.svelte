@@ -1,11 +1,10 @@
-<script>
+<script lang="ts">
 	import * as S from '$lib/state.ts';
-	import { titles } from '$lib/titles.ts';
+	import type { PageData } from './$types';
 
-	let appNode;
-	let state = S.scrambled(S.initState(
-		titles[S.uniform(titles.length)]
-	));
+	export let data: PageData;
+
+	let state = S.scrambled(S.initState(data.title));
 
 	$: finished = S.done(state);
 
@@ -47,7 +46,7 @@
 	}
 </script>
 
-<div class="app" class:finished={finished} bind:this={appNode} on:keydown={handleKeydown} role="grid" tabindex="0">
+<div class="app" class:finished={finished} on:keydown={handleKeydown} role="grid" tabindex="0">
 	<p class="letters">
 		{#each state.board as letter, i}
 			<span class="letter {state.cursorL <= i && i <= state.cursorR ? 'cursor' : ''}">{letter}</span>
